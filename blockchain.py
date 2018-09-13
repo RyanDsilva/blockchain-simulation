@@ -30,11 +30,6 @@ class BlockChain:
                 return False
         return True
 
-    def addBlock(self, newBlock):
-        newBlock.previousHash = self.getLastestBlock().currentHash
-        newBlock.mineBlock(self.PROOF_OF_WORK)
-        self.blocks.append(newBlock)
-
     def minePendingTransactions(self, address):
         latestHash = self.getLastestBlock().currentHash
         block = Block(self.pendingTransactions[:5], latestHash)
