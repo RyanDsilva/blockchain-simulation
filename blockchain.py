@@ -37,9 +37,15 @@ class BlockChain:
         pass
 
     def validateChain(self):
-        pass
+        for index, block in enumerate(self.blocks, start=1):
+            prev = self.blocks[index - 1]
+            if block.currentHash != block.calculateHash():
+                return False
+            if block.previousHash != prev.currentHash:
+                return False
+        return True
 
-    def addBlock(self):
+    def addBlock(self, newBlock):
         pass
 
     def proofOfWork(self):
