@@ -31,6 +31,3 @@ class BlockChain:
         newBlock.previousHash = self.getLastestBlock().currentHash
         newBlock.mineBlock(self.PROOF_OF_WORK)
         self.blocks.append(newBlock)
-
-
-RYCOIN = BlockChain('RYCOIN', '0000', 100)
