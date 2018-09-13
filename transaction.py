@@ -3,3 +3,6 @@ class Transaction:
         self.toAddress = toAddress
         self.fromAddress = fromAddress
         self.amount = amount
+
+    def __repr__(self):
+        return " <Transaction To:%s\tFrom:%s\tAmount:%s>" % (self.toAddress, self.fromAddress, self.amount)

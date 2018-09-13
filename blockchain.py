@@ -10,6 +10,9 @@ class BlockChain:
         self.miningReward = reward
         self.blocks = [self.generateGenesisBlock()]
 
+    def __repr__(self):
+        return "<BlockChain Name:%s\tProof Of Work:%s\tReward:%s\nPending Transactions:%s\nBlocks:%s>" % (self.name, self.PROOF_OF_WORK, self.miningReward, self.pendingTransactions, self.blocks)
+
     def getLastestBlock(self):
         return self.blocks[len(self.blocks) - 1]
 
