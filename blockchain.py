@@ -17,7 +17,7 @@ class BlockChain:
         return self.blocks[len(self.blocks) - 1]
 
     def generateGenesisBlock(self):
-        genesis = Block(Transaction(None, None, 0), None)
+        genesis = Block([Transaction(None, None, 0)], None)
         genesis.mineBlock(self.PROOF_OF_WORK)
         return genesis
 

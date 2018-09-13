@@ -10,9 +10,9 @@ REWARD = int(input('Enter the Mining Reward\n'))
 RYCOIN = BlockChain(BLOCKCHAIN_NAME, PROOF_OF_WORK, REWARD)
 users = []
 
-while RYCOIN.validateChain():
+while True:
     main_choice = int(input(
-        'Select An Option:\n1. Create User\n2. Mine Block\n3. Get Balance\n4. Create Transaction\n5. Exit\n'))
+        'Select An Option:\n1. Create User\t2. Mine Block\t3. Get Balance\t4. Create Transaction\t5. Exit\n'))
     if main_choice == 1:
         name = input('Enter Name:\n')
         address = input('Enter Address (Numeric):\n')
@@ -25,16 +25,12 @@ while RYCOIN.validateChain():
             if address == user.address:
                 RYCOIN.minePendingTransactions(user.address)
                 print('Block Mined Successfully!')
-            else:
-                print('No Such User Found!')
     elif main_choice == 3:
         address = input('Enter Your Address:\n')
         for user in users:
             if address == user.address:
                 bal = RYCOIN.getBalance(user.address)
                 print('Your Balance is: ' + str(bal))
-            else:
-                print('No Such User Found!')
     elif main_choice == 4:
         toAdd = input('Enter Reciever\'s Address:\n')
         fAdd = input('Enter Your Address:\n')
