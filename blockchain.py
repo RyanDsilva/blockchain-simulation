@@ -17,7 +17,7 @@ class BlockChain:
         return self.blocks[len(self.blocks) - 1]
 
     def generateGenesisBlock(self):
-        genesis = Block(Transaction('RYCOIN', 'RYCOIN', 0), None)
+        genesis = Block(Transaction(None, None, 0), None)
         genesis.mineBlock(self.PROOF_OF_WORK)
         return genesis
 
@@ -34,3 +34,26 @@ class BlockChain:
         newBlock.previousHash = self.getLastestBlock().currentHash
         newBlock.mineBlock(self.PROOF_OF_WORK)
         self.blocks.append(newBlock)
+
+    def minePendingTransactions(self, address):
+        latestHash = self.getLastestBlock().currentHash
+        block = Block(self.pendingTransactions[:5], latestHash)
+        block.mineBlock(self.PROOF_OF_WORK)
+        self.blocks.append(block)
+        self.pendingTransactions = [
+            Transaction(address, None, self.miningReward)]
+
+    def createTransaction(self, transaction):
+        self.pendingTransactions.append(transaction)
+
+    def getBalance(self, address):
+        balance = 0
+        for block in self.blocks:
+            for transaction in block.transactions:
+                if transaction.fromAddress == address:
+                    balance -= transaction.amount
+                elif transaction.toAddress == address:
+                    balance += transaction.amount
+                else:
+                    continue
+        return balance
