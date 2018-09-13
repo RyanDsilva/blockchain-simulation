@@ -10,10 +10,10 @@ class Transaction:
 
 
 class Block:
-    def __init__(self, transaction, nonce, previousHash):
+    def __init__(self, transaction, previousHash):
         self.createdAt = dt.now()
         self.transaction = transaction
-        self.nonce = nonce
+        self.nonce = 0
         self.previousHash = previousHash
         self.currentHash = self.calculateHash()
 
@@ -23,18 +23,25 @@ class Block:
         hashString = hashString.encode()
         return hashlib.sha256(hashString).hexdigest()
 
+    def mineBlock(self, PROOF_OF_WORK):
+        while self.currentHash[:len(PROOF_OF_WORK)] != PROOF_OF_WORK:
+            self.nonce += 1
+            self.currentHash = self.calculateHash()
+
 
 class BlockChain:
     def __init__(self, name, proofOfWork):
         self.name = name
-        self.blocks = []
         self.PROOF_OF_WORK = proofOfWork
+        self.blocks = [self.generateGenesisBlock()]
 
     def getLastestBlock(self):
         return self.blocks[len(self.blocks) - 1]
 
     def generateGenesisBlock(self):
-        pass
+        genesis = Block(Transaction('RYCOIN', 'RYCOIN', 0), None)
+        genesis.mineBlock(self.PROOF_OF_WORK)
+        return genesis
 
     def validateChain(self):
         for index, block in enumerate(self.blocks, start=1):
@@ -46,7 +53,9 @@ class BlockChain:
         return True
 
     def addBlock(self, newBlock):
-        pass
+        newBlock.previousHash = self.getLastestBlock().currentHash
+        newBlock.mineBlock(self.PROOF_OF_WORK)
+        self.blocks.append(newBlock)
 
-    def proofOfWork(self):
-        pass
+
+RYCOIN = BlockChain('RYCOIN', '0000')
