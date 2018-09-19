@@ -2,10 +2,7 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 
 # Blockchain Files
-from blockchain import BlockChain
-from block import Block
-from transaction import Transaction
-from user import User
+
 
 app = Flask(__name__)
 app.config.from_object(__name__)
