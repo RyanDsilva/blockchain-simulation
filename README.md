@@ -1,4 +1,4 @@
-# Blockchain Simulation (RYCOIN)
+# Blockchain Simulation (CryptoCurrency)
 
 ### Simulation of A BlockChain in the Python Programming Language
 
